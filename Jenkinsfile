@@ -23,7 +23,7 @@ pipeline {
         )
         choice(
             name: 'Deploy_to',
-            choices: ['Dev', 'QA', 'Prod'],
+            choices: ['dev', 'qa', 'prod'],
             description: 'Pick the environment to deploy the catalogue component'
         )
     }
