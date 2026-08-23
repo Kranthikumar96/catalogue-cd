@@ -40,7 +40,6 @@ pipeline {
                             kubectl apply -f 01-namespace.yaml
                             sed -i "s/IMAGE_VERSION/${params.appVersion}/g" values-${params.Deploy_to.toLowerCase()}.yaml
                             helm upgrade --install ${COMPONENT} -f values-${params.Deploy_to.toLowerCase()}.yaml -n ${PROJECT} .
-                            kubectl apply -f application.yaml
                         """
                     }
                 }
