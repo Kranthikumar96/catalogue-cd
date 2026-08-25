@@ -87,11 +87,39 @@ pipeline {
         // API Testing
         stage('Functional Testing'){
             when{
-                expression { params.deploy_to = "dev" }
+                expression { params.Deploy_to = "dev" }
             }
              steps{
                 script{
                     echo "Run functional test cases"
+                }
+            }
+        }
+        // All components testing
+        stage('Integration Testing'){
+            when{
+                expression { params.Deploy_to = "qa" }
+            }
+             steps{
+                script{
+                    echo "Run Integration test cases"
+                }
+            }
+        }
+        stage('PROD Deploy') {
+            when{
+                expression { params.Deploy_to = "prod" }
+            }
+            steps {
+                script {
+                    withAWS(credentials: 'aws-creds', region: 'us-east-1') {
+                        sh """
+                            echo "get cr number"
+                            echo "check with in the deployment window"
+                            echo "is CR approved"
+                            echo "trigger PROD deploy"
+                        """
+                    }
                 }
             }
         }
