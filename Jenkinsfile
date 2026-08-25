@@ -95,34 +95,6 @@ pipeline {
                 }
             }
         }
-        // All components testing
-        stage('Integration Testing'){
-            when{
-                expression { params.deploy_to = "qa" }
-            }
-             steps{
-                script{
-                    echo "Run Integration test cases"
-                }
-            }
-        }
-        stage('PROD Deploy') {
-            when{
-                expression { params.deploy_to = "prod" }
-            }
-            steps {
-                script {
-                    withAWS(credentials: 'aws-creds', region: 'us-east-1') {
-                        sh """
-                            echo "get cr number"
-                            echo "check with in the deployment window"
-                            echo "is CR approved"
-                            echo "trigger PROD deploy"
-                        """
-                    }
-                }
-            }
-        }
     }
 
     post {
